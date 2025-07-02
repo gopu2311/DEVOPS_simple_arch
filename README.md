@@ -1,126 +1,128 @@
-# DevOps Assignment
+# 🚀 DevOps Full Stack Assignment
 
-This project consists of a FastAPI backend and a Next.js frontend that communicates with the backend.
+This project is a complete DevOps-ready full-stack application built with **FastAPI** (backend) and **Next.js** (frontend). It features containerization with **Docker**, CI/CD via **GitHub Actions**, and infrastructure deployment using **Terraform** on **AWS ECS (Fargate)**.
 
-## Project Structure
+---
+
+## 📁 Project Structure
 
 ```
 .
-├── backend/               # FastAPI backend
-│   ├── app/
-│   │   └── main.py       # Main FastAPI application
-│   └── requirements.txt    # Python dependencies
-└── frontend/              # Next.js frontend
-    ├── pages/
-    │   └── index.js     # Main page
-    ├── public/            # Static files
-    └── package.json       # Node.js dependencies
+├── backend/                 # FastAPI backend
+├── frontend/                # Next.js frontend
+├── terraform/               # Infrastructure as Code
+├── .github/workflows/       # GitHub Actions CI/CD
+├── docker-compose.yml       # Local development (optional)
 ```
 
-## Prerequisites
+---
 
-- Python 3.8+
-- Node.js 16+
-- npm or yarn
+## ⚙️ Tech Stack
 
-## Backend Setup
+- 🐍 FastAPI
+- ⚛️ Next.js (React)
+- 🐳 Docker & Docker Compose
+- ✅ GitHub Actions (CI/CD)
+- 🧪 Pytest & Jest (Testing)
+- ☁️ AWS ECS Fargate, ALB, Secrets Manager
+- 🔧 Terraform (IaC)
 
-1. Navigate to the backend directory:
-   ```bash
-   cd backend
-   ```
+---
 
-2. Create a virtual environment (recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: .\venv\Scripts\activate
-   ```
+## ✨ Features
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+- API with FastAPI + UI with Next.js
+- Unit testing for both frontend & backend
+- CI/CD with GitHub Actions:
+  - **Push to `develop`**: Run tests, build & push Docker images to Docker Hub
+  - **Push to `main`**: Trigger deployment to AWS ECS
+- Infrastructure provisioning using Terraform:
+  - VPC, subnets, security groups
+  - ECS Fargate services + ALB
+  - Secrets via AWS Secrets Manager
 
-4. Run the FastAPI server:
-   ```bash
-   uvicorn app.main:app --reload --port 8000
-   ```
+---
 
-   The backend will be available at `http://localhost:8000`
+## 🧪 Run Tests Locally
 
-## Frontend Setup
-
-1. Navigate to the frontend directory:
-   ```bash
-   cd frontend
-   ```
-
-2. Install dependencies:
-   ```bash
-   npm install
-   # or
-   yarn
-   ```
-
-3. Configure the backend URL (if different from default):
-   - Open `.env.local`
-   - Update `NEXT_PUBLIC_API_URL` with your backend URL
-   - Example: `NEXT_PUBLIC_API_URL=https://your-backend-url.com`
-
-4. Run the development server:
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-   The frontend will be available at `http://localhost:3000`
-
-## Changing the Backend URL
-
-To change the backend URL that the frontend connects to:
-
-1. Open the `.env.local` file in the frontend directory
-2. Update the `NEXT_PUBLIC_API_URL` variable with your new backend URL
-3. Save the file
-4. Restart the Next.js development server for changes to take effect
-
-Example:
-```
-NEXT_PUBLIC_API_URL=https://your-new-backend-url.com
+**Backend**
+```bash
+cd backend
+pytest
 ```
 
-## For deployment:
-   ```bash
-   npm run build
-   # or
-   yarn build
-   ```
+**Frontend**
+```bash
+cd frontend
+npm install
+npm test
+```
 
-   AND
+---
 
-   ```bash
-   npm run start
-   # or
-   yarn start
-   ```
+## 🐳 Docker (Local Development)
 
-   The frontend will be available at `http://localhost:3000`
+```bash
+docker-compose up --build
+```
 
-## Testing the Integration
+- Frontend: http://localhost:3000  
+- Backend: http://localhost:8000
 
-1. Ensure both backend and frontend servers are running
-2. Open the frontend in your browser (default: http://localhost:3000)
-3. If everything is working correctly, you should see:
-   - A status message indicating the backend is connected
-   - The message from the backend: "You've successfully integrated the backend!"
-   - The current backend URL being used
+---
 
-## API Endpoints
+## 🔄 GitHub Actions CI/CD
 
-- `GET /api/health`: Health check endpoint
-  - Returns: `{"status": "healthy", "message": "Backend is running successfully"}`
+| Branch     | Action                                  |
+|------------|------------------------------------------|
+| `develop`  | Run tests + Docker build + push to Docker Hub |
+| `main`     | Deploy to AWS ECS using Terraform        |
 
-- `GET /api/message`: Get the integration message
-  - Returns: `{"message": "You've successfully integrated the backend!"}`
-# trigger again
+---
+
+## ☁️ Terraform Deployment
+
+```bash
+cd terraform
+terraform init
+terraform apply
+```
+
+You must provide:
+- Docker image URLs for `backend_image` and `frontend_image`
+- AWS credentials
+- Secrets like `NEXT_PUBLIC_API_URL`
+
+---
+
+## 🔐 Secrets Example (`terraform.tfvars`)
+
+```hcl
+backend_image  = "gopu2311/fastapi-backend:<sha>"
+frontend_image = "gopu2311/frontend-app:<sha>"
+
+secrets = {
+  NEXT_PUBLIC_API_URL = "http://<your-alb-dns>:8000"
+}
+```
+
+---
+
+## 📦 Docker Images
+
+- **Backend**: `docker.io/gopu2311/fastapi-backend`
+- **Frontend**: `docker.io/gopu2311/frontend-app`
+
+---
+
+## 👨‍💻 Author
+
+**Gopendra Rajput**  
+DevOps Enthusiast | Ahmedabad, India  
+🔗 [LinkedIn](https://www.linkedin.com/in/gopendra-rajput-663689345/)
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
