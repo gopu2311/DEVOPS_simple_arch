@@ -93,18 +93,6 @@ You must provide:
 - AWS credentials
 - Secrets like `NEXT_PUBLIC_API_URL`
 
----
-
-## 🔐 Secrets Example (`terraform.tfvars`)
-
-```hcl
-backend_image  = "gopu2311/fastapi-backend:<sha>"
-frontend_image = "gopu2311/frontend-app:<sha>"
-
-secrets = {
-  NEXT_PUBLIC_API_URL = "http://<your-alb-dns>:8000"
-}
-```
 
 ---
 
