@@ -3,5 +3,5 @@ backend_image    = "gopu2311/fastapi-backend:latest"
 frontend_image   = "gopu2311/frontend-app:latest"
 
 secrets = {
-  DB_PASSWORD = "example-password"
+  DB_PASSWORD = ""
 }
